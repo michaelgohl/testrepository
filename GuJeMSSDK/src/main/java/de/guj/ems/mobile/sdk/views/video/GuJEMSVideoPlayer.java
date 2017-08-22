@@ -380,7 +380,7 @@ public class GuJEMSVideoPlayer extends RelativeLayout {
 	}
 
 	public void setAdUnit(String adUnit, boolean inStream) {
-		this.mAdTagUrl = inStream ? mContext.getString(R.string.ems_videoAdcall).replaceAll("\\[adunit\\]", adUnit.replaceAll("\\/6032\\/", "")) : mContext.getString(R.string.ems_inflowAdcall).replaceAll("\\[adunit\\]", adUnit.replaceAll("\\/6032\\/", ""));
+		this.mAdTagUrl = inStream ? mContext.getString(R.string.ems_videoAdcall).replaceAll("\\[adunit\\]", adUnit.replaceAll("/6032/", "").replaceAll("\\/6032\\/", "")) : mContext.getString(R.string.ems_inflowAdcall).replaceAll("\\[adunit\\]", adUnit.replaceAll("/6032/", "").replaceAll("\\/6032\\/", ""));
 		SdkLog.i(TAG, (inStream ? "In-stream" : "Out-stream") + " DFP video ad call: " + this.mAdTagUrl);
 		if (mVideoPlayerController != null) {
 			mVideoPlayerController.setAdTagUrl(this.mAdTagUrl);

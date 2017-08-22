@@ -114,6 +114,8 @@ public class DFPSettingsAdapter extends AdServerSettingsAdapter {
 		return addPhoneStatus(addBatteryStatus(getParams()));
 	}
 
+
+
 	/**
 	 * Acquire the preinitialized request builder for Google Ads with all custom
 	 * values that were available. Use builder.build() to finalize
@@ -121,6 +123,10 @@ public class DFPSettingsAdapter extends AdServerSettingsAdapter {
 	 * @return the Google Publisher Ad Request builder
 	 */
 	public Builder getGoogleRequestBuilder(int pos) {
+		return this.getGoogleRequestBuilder(pos, false);
+	}
+
+	public Builder getGoogleRequestBuilder(int pos, boolean hasAdUnit) {
 		Map<String, String> customValues = getCustomValues();
 
 		Iterator<String> cvI = customValues.keySet().iterator();
@@ -148,32 +154,33 @@ public class DFPSettingsAdapter extends AdServerSettingsAdapter {
 			}
 		}
 
-		String adunit = SdkUtil.mapToDfp(this.zone);
-		if (adunit != null) {
-			String[] adc = adunit.split(",");
-			if (pos <= 0 && adc.length > 1) {
-				SdkLog.d(TAG,
-						hashCode() + " adding custom key value [pos, " + adunit.split(",")[1]
-								+ "]");
-				adRequestBuilder = adRequestBuilder.addCustomTargeting("pos",
-						adc[1]);
-			} else if (pos > 0) {
-				SdkLog.d(TAG, hashCode() + " adding custom key value [pos, " + pos + "]");
-				adRequestBuilder = adRequestBuilder.addCustomTargeting("pos",
-						String.valueOf(pos));
-			}
-			else {
-				SdkLog.w(TAG, "No position value provided. The SDK cannot where in your view the ad view i.!");			
-			}
+		if (!hasAdUnit) {
+			String adunit = SdkUtil.mapToDfp(this.zone);
+			if (adunit != null) {
+				String[] adc = adunit.split(",");
+				if (pos <= 0 && adc.length > 1) {
+					SdkLog.d(TAG,
+							hashCode() + " adding custom key value [pos, " + adunit.split(",")[1]
+									+ "]");
+					adRequestBuilder = adRequestBuilder.addCustomTargeting("pos",
+							adc[1]);
+				} else if (pos > 0) {
+					SdkLog.d(TAG, hashCode() + " adding custom key value [pos, " + pos + "]");
+					adRequestBuilder = adRequestBuilder.addCustomTargeting("pos",
+							String.valueOf(pos));
+				} else {
+					SdkLog.w(TAG, "No position value provided. The SDK cannot where in your view the ad view i.!");
+				}
 
-			if (adc.length > 2 && adc[2].length() > 1) {
-				SdkLog.d(TAG, hashCode() + " adding custom key value [ind, " + adc[2] + "]");
-				adRequestBuilder = adRequestBuilder.addCustomTargeting("ind",
-						adc[2]);
+				if (adc.length > 2 && adc[2].length() > 1) {
+					SdkLog.d(TAG, hashCode() + " adding custom key value [ind, " + adc[2] + "]");
+					adRequestBuilder = adRequestBuilder.addCustomTargeting("ind",
+							adc[2]);
+				}
 			}
 		}
 
-        if (this.androidAdId != "") {
+        if (this.androidAdId.equals("")) {
             adRequestBuilder = adRequestBuilder.addCustomTargeting("idfa", this.androidAdId);
         }
 

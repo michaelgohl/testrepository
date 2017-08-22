@@ -50,7 +50,7 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 
 	private final String TAG = "GuJEMSAdView";
 
-	private boolean hasAdUnitId = false;
+	protected boolean hasAdUnitId = false;
 
 	private int position = 0;
 	private boolean destroyOnDetach = true;
@@ -344,6 +344,11 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 	 * the boolean load flag was used and it was false
 	 */
 	public void load() {
+		ViewGroup.LayoutParams lp = this.getLayoutParams();
+		if (lp != null) {
+			lp.height = 0;
+			this.setLayoutParams(lp);
+		}
 		if (settings != null) {
 			SdkUtil.setContext(getContext());
 			// Start request if online
@@ -351,7 +356,7 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 				SdkLog.i(TAG, settings.hashCode() + " starting ad request");
 
 				Builder requestBuilder = ((DFPSettingsAdapter) settings)
-						.getGoogleRequestBuilder(this.position);
+						.getGoogleRequestBuilder(this.position, this.hasAdUnitId);
 
 				if (!this.contentUrl.equals("")) {
 					requestBuilder.setContentUrl(this.contentUrl);
@@ -512,7 +517,6 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 	protected void preLoadInitialize(Context context, AttributeSet set) {
 		setVisibility(View.GONE);
 		this.adView = new PublisherAdView(context);
-
 		TypedArray tVals = context.obtainStyledAttributes(set,
 				R.styleable.GuJEMSAdView);
 		String adUnit = tVals.getString(R.styleable.GuJEMSAdView_ems_adUnit);
@@ -587,17 +591,17 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 			this.position = Integer.parseInt(vals[1]);
 			this.adView.setAdUnitId(getContext().getResources().getString(
 					R.string.ems_dfpNetwork)
-					+ vals[0].replace("\\/6032\\/", ""));
+					+ vals[0].replace("/6032/", "").replaceAll("\\/6032\\/", ""));
 			if ("yes".equals(vals[2])) {
 				settings.addCustomRequestParameter("ind", "yes");
 			}
-			settings.addCustomRequestParameter("pos", this.position);
 		} else {
 			this.position = position;
 			this.adView.setAdUnitId(getContext().getResources().getString(
 					R.string.ems_dfpNetwork)
-					+ adUnitId.replace("\\/6032\\/", ""));
+					+ adUnitId.replace("/6032/", "").replaceAll("\\/6032\\/", ""));
 		}
+		settings.addCustomRequestParameter("pos", this.position);
 		SdkLog.d(
 				TAG,
 				settings.hashCode()
@@ -609,6 +613,17 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 						+ (settings.getParams().get("ind") != null ? settings
 								.getParams().get("ind") : "no") + "]");
 		this.hasAdUnitId = true;
+	}
+
+	public void makeAdVisibile() {
+		ViewGroup.LayoutParams lp = this.getLayoutParams();
+		if (lp != null) {
+			AdSize a = this.adView.getAdSize();
+			if (a.getHeight() != 1 && a.getWidth() != 1) {
+				lp.height = -2;
+			}
+			this.setLayoutParams(lp);
+		}
 	}
 
 	/**

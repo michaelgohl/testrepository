@@ -190,7 +190,7 @@ public class GuJEMSNativeContentAdView extends GuJEMSAdView {
 			this.settings = new DFPSettingsAdapter();
 			this.settings.setup(context, set);
 			if (adUnit != null) {
-				setAdUnitId(adUnit, 1);
+				this.setAdUnitId(adUnit, 1);
 			}
 		}
 
@@ -221,7 +221,7 @@ public class GuJEMSNativeContentAdView extends GuJEMSAdView {
 				SdkLog.i(TAG, settings.hashCode() + " starting ad request");
 
 				Builder requestBuilder = ((DFPSettingsAdapter) settings)
-						.getGoogleRequestBuilder(1);
+						.getGoogleRequestBuilder(1, this.hasAdUnitId);
 				this.adLoader.loadAd(requestBuilder.build());
 
 			}
@@ -242,11 +242,13 @@ public class GuJEMSNativeContentAdView extends GuJEMSAdView {
 	 * @param adUnitId
 	 */
 	public void setAdUnitId(String adUnitId) {
-		this.mAdUnit = getContext().getResources().getString(R.string.ems_dfpNetwork) + adUnitId.replaceAll("/6032/", "");
-		this.setAdLoader(getContext());
+		this.setAdUnitId(adUnitId, 1);
 	}
 
 	public void setAdUnitId(String adUnitId, int position) {
-		this.setAdUnitId(adUnitId);
+		this.mAdUnit = getContext().getResources().getString(R.string.ems_dfpNetwork) + adUnitId.replaceAll("/6032/", "").replaceAll("\\/6032\\/", "");
+		this.setAdLoader(getContext());
+		this.settings.addCustomRequestParameter("pos", position);
+		this.hasAdUnitId = true;
 	}
 }
