@@ -517,7 +517,6 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 	protected void preLoadInitialize(Context context, AttributeSet set) {
 		setVisibility(View.GONE);
 		this.adView = new PublisherAdView(context);
-
 		TypedArray tVals = context.obtainStyledAttributes(set,
 				R.styleable.GuJEMSAdView);
 		String adUnit = tVals.getString(R.styleable.GuJEMSAdView_ems_adUnit);

@@ -1,6 +1,6 @@
 ﻿# gujemsandroidsdk
 
-**Latest stable Version 2.1.4**
+**Latest stable Version 2.1.3**
 
 ## Requirements
 
