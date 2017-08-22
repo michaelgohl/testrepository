@@ -1,0 +1,2 @@
+include ':GuJeMSSDK'
+include ':exampleApp'
