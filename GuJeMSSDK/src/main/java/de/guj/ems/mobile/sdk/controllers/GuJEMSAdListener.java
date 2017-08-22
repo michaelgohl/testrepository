@@ -71,6 +71,9 @@ public class GuJEMSAdListener extends AdListener {
 	}
 	
 	private void onAdSuccess() {
+		if (this.adView != null) {
+			this.adView.makeAdVisibile();
+		}
 		if (this.settings.getOnAdSuccessListener() != null) {
 			this.settings.getOnAdSuccessListener().onAdSuccess();
 		}

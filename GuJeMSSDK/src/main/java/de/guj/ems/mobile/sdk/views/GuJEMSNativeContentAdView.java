@@ -242,7 +242,7 @@ public class GuJEMSNativeContentAdView extends GuJEMSAdView {
 	 * @param adUnitId
 	 */
 	public void setAdUnitId(String adUnitId) {
-		this.mAdUnit = getContext().getResources().getString(R.string.ems_dfpNetwork) + adUnitId.replaceAll("/6032/", "");
+		this.mAdUnit = getContext().getResources().getString(R.string.ems_dfpNetwork) + adUnitId.replaceAll("/6032/", "").replaceAll("\\/6032\\/", "");
 		this.setAdLoader(getContext());
 	}
 

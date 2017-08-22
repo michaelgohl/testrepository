@@ -344,6 +344,9 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 	 * the boolean load flag was used and it was false
 	 */
 	public void load() {
+		ViewGroup.LayoutParams lp = this.getLayoutParams();
+		lp.height = 0;
+		this.setLayoutParams(lp);
 		if (settings != null) {
 			SdkUtil.setContext(getContext());
 			// Start request if online
@@ -587,7 +590,7 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 			this.position = Integer.parseInt(vals[1]);
 			this.adView.setAdUnitId(getContext().getResources().getString(
 					R.string.ems_dfpNetwork)
-					+ vals[0].replace("\\/6032\\/", ""));
+					+ vals[0].replace("/6032/", "").replaceAll("\\/6032\\/", ""));
 			if ("yes".equals(vals[2])) {
 				settings.addCustomRequestParameter("ind", "yes");
 			}
@@ -596,7 +599,7 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 			this.position = position;
 			this.adView.setAdUnitId(getContext().getResources().getString(
 					R.string.ems_dfpNetwork)
-					+ adUnitId.replace("\\/6032\\/", ""));
+					+ adUnitId.replace("/6032/", "").replaceAll("\\/6032\\/", ""));
 		}
 		SdkLog.d(
 				TAG,
@@ -609,6 +612,15 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 						+ (settings.getParams().get("ind") != null ? settings
 								.getParams().get("ind") : "no") + "]");
 		this.hasAdUnitId = true;
+	}
+
+	public void makeAdVisibile() {
+		ViewGroup.LayoutParams lp = this.getLayoutParams();
+		AdSize a = this.adView.getAdSize();
+		if (a.getHeight() != 1 && a.getWidth() != 1) {
+			lp.height = -2;
+		}
+		this.setLayoutParams(lp);
 	}
 
 	/**
