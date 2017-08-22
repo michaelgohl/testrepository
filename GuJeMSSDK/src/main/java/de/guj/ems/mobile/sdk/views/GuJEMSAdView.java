@@ -345,8 +345,10 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 	 */
 	public void load() {
 		ViewGroup.LayoutParams lp = this.getLayoutParams();
-		lp.height = 0;
-		this.setLayoutParams(lp);
+		if (lp != null) {
+			lp.height = 0;
+			this.setLayoutParams(lp);
+		}
 		if (settings != null) {
 			SdkUtil.setContext(getContext());
 			// Start request if online
@@ -616,11 +618,13 @@ public class GuJEMSAdView extends LinearLayout implements AppEventListener {
 
 	public void makeAdVisibile() {
 		ViewGroup.LayoutParams lp = this.getLayoutParams();
-		AdSize a = this.adView.getAdSize();
-		if (a.getHeight() != 1 && a.getWidth() != 1) {
-			lp.height = -2;
+		if (lp != null) {
+			AdSize a = this.adView.getAdSize();
+			if (a.getHeight() != 1 && a.getWidth() != 1) {
+				lp.height = -2;
+			}
+			this.setLayoutParams(lp);
 		}
-		this.setLayoutParams(lp);
 	}
 
 	/**

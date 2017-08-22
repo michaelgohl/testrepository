@@ -1,13 +1,11 @@
 ﻿# gujemsandroidsdk
 
-**Latest stable Version 2.1.3**
+**Latest stable Version 2.1.4**
 
 ## Requirements
 
-The SDK supports **Android 2.2 and higher**.  
+The SDK supports **Android 2.3.3 and higher**.  
 Language Support: **Java**  
-Use **Android SDK Tools v23 or higher**
-Dependencies **Google Play Services v25 or higher required**
 
 ## Installation
 
