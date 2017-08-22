@@ -116,6 +116,10 @@ public class BannerFragment extends Fragment {
             String adUnitId = util.getStringSettingByKey(GlobalData.preferenceAdUnit);
             gujView.getSettings().addCustomRequestParameter("ind", index ? "yes" : "no");
             gujView.getSettings().addCustomRequestParameter("idx", index ? "true" : "false");
+            String kw = util.getStringSettingByKey(GlobalData.preferenceKeywords);
+            if (!kw.trim().equals("")) {
+                gujView.getSettings().addCustomRequestParameter("kw", kw);
+            }
             gujView.setAdUnitId(adUnitId, position);
             this.disableSizes(gujView, position);
             String cUrl = util.getStringSettingByKey(GlobalData.preferenceContentUrl + position);

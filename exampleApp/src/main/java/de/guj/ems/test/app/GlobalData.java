@@ -10,5 +10,7 @@ public class GlobalData {
 	public final static String preferenceBannerTwoOnOne = "twoOnOneDisabled";
 	public final static String preferenceContentUrl = "contentUrl";
 	public final static String preferenceBannerThreeOnOne = "threeOnOneDisabled";
+	public final static String preferenceKeywords = "keywords";
+
 }
 

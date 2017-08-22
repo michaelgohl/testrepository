@@ -28,7 +28,10 @@ public class InterstitialFragement extends Fragment implements Serializable {
                             InterstitialSwitchReceiver.class);
                     i.putExtra("adUnitId", adUnitId);
                     i.putExtra("ems_geo", Boolean.valueOf(true));
-
+                    String kw = util.getStringSettingByKey(GlobalData.preferenceKeywords);
+                    if (!kw.trim().equals("")) {
+                        i.putExtra("ems_kw", kw);
+                    }
                     ListenerEvents le = new ListenerEvents(
                             rootView, R.id.FragmentInterstitialTextView);
                     i.putExtra("ems_onAdSuccess", le);

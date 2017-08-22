@@ -114,6 +114,8 @@ Intent i = new Intent(getActivity(),
         InterstitialSwitchReceiver.class);
 /* set Ad Unit Id */
 i.putExtra("adUnitId", "sdktest");
+/* set keywords */
+i.putExtra("ems_kw", "keyword1, keyword2");
 /* initialize an ListenerEvents object -> class wihich implements IOnAdEmptyListener, etc.) */
 ListenerEvents le = new ListenerEvents(); 
 /* set event listener */

@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
     <string name="settingsText1">Ad Unit ID</string>
+    <string name="settingsText3">Keywords</string>
     <string name="settingsText2">Index Page?</string>
     <string name="settingsButton">Save</string>
     <string name="TabVideo">Video</string>

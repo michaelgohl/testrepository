@@ -109,6 +109,14 @@ public class InterstitialSwitchReceiver extends BroadcastReceiver implements
 		this.settings.setOnAdEmptyListener(this);
 		this.settings.setOnAdErrorListener(this);
 
+		try {
+			if (arg1.getExtras().containsKey("ems_kw")) {
+				this.settings.addCustomRequestParameter("kw", (String) arg1.getExtras().get("ems_kw"));
+			}
+		} catch (Exception e) {
+		}
+
+
 		// adserver request
 		Builder requestBuilder = ((DFPSettingsAdapter) settings)
 				.getGoogleRequestBuilder(0);

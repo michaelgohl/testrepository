@@ -18,11 +18,13 @@ public class SettingsActivity extends Activity {
 		setContentView(R.layout.activity_settings);		
 		
 		TextView adUnit = (TextView)findViewById(R.id.settingsValueAdUnit);
+		TextView keywords = (TextView)findViewById(R.id.settingsValueKeywords);
 		ToggleButton isIndex = (ToggleButton)findViewById(R.id.settingsValueIndex);
 		// Inital Set of Settings
 		try {
 			adUnit.setText(util.getStringSettingByKey(GlobalData.preferenceAdUnit));
 			isIndex.setChecked(util.getBooleanSettingByKey(GlobalData.preferenceIndex));
+			keywords.setText(util.getStringSettingByKey(GlobalData.preferenceKeywords));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -76,10 +78,12 @@ public class SettingsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				TextView adUnit = (TextView)findViewById(R.id.settingsValueAdUnit);
+				TextView keywords = (TextView)findViewById(R.id.settingsValueKeywords);
 				ToggleButton isIndex = (ToggleButton)findViewById(R.id.settingsValueIndex);
 				
 				try {
 					util.setStringSetting(GlobalData.preferenceAdUnit, adUnit.getText().toString());
+					util.setStringSetting(GlobalData.preferenceKeywords, keywords.getText().toString());
 					util.setBooleanSetting(GlobalData.preferenceIndex, isIndex.isChecked());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
